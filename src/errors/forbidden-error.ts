@@ -1,9 +1,8 @@
-import { ApplicationError } from "../protocols"
+import { ApplicationError } from "@/protocols";
 
-
-export async function forbiddenError(): Promise<ApplicationError>{
-    return({
-        name:"ForbiddenError",
-        message:"You dont't have permission to access on this server"
-    })
+export  function forbiddenError(): ApplicationError {
+  return{
+    name: "ForbiddenError",
+    message: "You dont't have permission to access on this server"
+  };
 }

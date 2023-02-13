@@ -17,7 +17,6 @@ export async function getBookingController(req: AuthenticatedRequest, res: Respo
 export async function createBookingController(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
   const { roomId } = req.body;
-
   if(!roomId) {
     return res.sendStatus(httpStatus.NOT_FOUND);
   }
