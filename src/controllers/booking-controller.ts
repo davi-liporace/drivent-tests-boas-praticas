@@ -48,13 +48,10 @@ export async function createBookingController(req: AuthenticatedRequest, res: Re
   catch (error) {
     if(error.name === "NotFoundError") {
       return res.sendStatus(httpStatus.NOT_FOUND);
-    }if (error.name ==="UnauthorizedError") {
-      return res.sendStatus(httpStatus.UNAUTHORIZED);
     }
     if(error.name==="ForbiddenError") {
       return res.sendStatus(httpStatus.FORBIDDEN);
     }
-    
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }
