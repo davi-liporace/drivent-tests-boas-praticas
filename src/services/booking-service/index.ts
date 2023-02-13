@@ -19,12 +19,12 @@ async function createBookingService(userId: number, roomId: number) {
   if (!ticket || ticket.status === "RESERVED" || ticket.TicketType.isRemote || !ticket.TicketType.includesHotel) {
     throw forbiddenError();
   }
-  const getBooking = await bookingRepository.getbookingByRoom(roomId);
   const getRoom = await bookingRepository.getOneRoom(roomId);
-  if (!getRoom) {
+  if(!getRoom) {
     throw notFoundError();
   }
-  if ( getRoom.capacity <= getBooking.length) {
+  const capacity = getRoom.capacity === getRoom.Booking.length;
+  if (capacity) {
     throw forbiddenError();
   }
 
@@ -39,9 +39,12 @@ async function createBookingService(userId: number, roomId: number) {
 async function updateRoomService(roomId: number, bookingId: number, userId: number) {
   const bookingfromId = await bookingRepository.findBooking(userId);
   if(!bookingfromId) throw forbiddenError();
-  const getBooking = await bookingRepository.getbookingByRoom(roomId);
   const getRoom = await bookingRepository.getOneRoom(roomId);
-  if ( getRoom.capacity <= getBooking.length) {
+  if(!getRoom) {
+    throw notFoundError();
+  }
+  const capacity = getRoom.capacity === getRoom.Booking.length;
+  if (capacity) {
     throw forbiddenError();
   }
   const updateRoom = bookingRepository.changeRoom(roomId, bookingId);

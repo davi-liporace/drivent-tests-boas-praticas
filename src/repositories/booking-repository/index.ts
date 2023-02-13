@@ -24,7 +24,7 @@ async function getbookingByRoom(roomId: number) {
 
 async function getOneRoom(roomId: number) {
   return prisma.room.findFirst({
-    where: { id: roomId }
+    where: { id: roomId }, include: { Booking: true }
   });
 }
 
